@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BuildRight Constructions</title>
+  <meta name="description" content="Quality construction services: residential, commercial, and infrastructure projects." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --brand: #f7a614;
+      --dark: #1b1f24;
+      --text: #263238;
+      --muted: #6b778c;
+      --light: #ffffff;
+      --bg: #f5f7fb;
+      --success: #219653;
+      --danger: #d90429;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: var(--text); background: var(--bg); }
+    img { max-width: 100%; display: block; }
+
+    /* Layout */
+    .container { width: 92%; max-width: 1100px; margin: 0 auto; }
+    section { padding: 64px 0; }
+    .grid { display: grid; gap: 24px; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 700px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+    /* Header */
+    header { position: sticky; top: 0; z-index: 1000; background: rgba(255,255,255,0.9); backdrop-filter: saturate(180%) blur(8px); border-bottom: 1px solid #e6e9ef; }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .brand-logo { width: 36px; height: 36px; border-radius: 8px; background: var(--brand); display: grid; place-items: center; color: #111; font-weight: 800; }
+    .brand-name { font-weight: 700; color: var(--dark); }
+    .menu { display: flex; align-items: center; gap: 18px; }
+    .menu a { color: var(--text); text-decoration: none; font-weight: 500; }
+    .menu a:hover { color: var(--brand); }
+    .cta-btn { padding: 10px 16px; border-radius: 8px; background: var(--brand); color: #111; font-weight: 600; text-decoration: none; border: 2px solid transparent; }
+    .cta-btn:hover { filter: brightness(1.05); transform: translateY(-1px); transition: 150ms ease; }
+
+    /* Mobile menu */
+    .hamburger { display: none; border: none; background: transparent; font-size: 20px; }
+    @media (max-width: 880px) {
+      .hamburger { display: block; }
+      .menu { display: none; position: absolute; top: 60px; right: 4%; background: #fff; border: 1px solid #e6e9ef; border-radius: 12px; padding: 12px; flex-direction: column; min-width: 220px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+      .menu.open { display: flex; }
+    }
+
+    /* Hero */
+    .hero { display: grid; gap: 32px; grid-template-columns: 1.1fr 0.9fr; align-items: center; padding: 48px 0 24px; }
+    @media (max-width: 880px) { .hero { grid-template-columns: 1fr; } }
+    .hero h1 { font-size: clamp(28px, 5vw, 44px); line-height: 1.15; color: var(--dark); margin: 0 0 12px; }
+    .hero p { color: var(--muted); margin: 0 0 20px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 10px; border: 2px solid #111; background: #111; color: #fff; font-weight: 600; text-decoration: none; }
+    .btn.secondary { background: transparent; color: #111; }
+    .hero-card { background: #fff; border: 1px solid #e6e9ef; border-radius: 16px; padding: 20px; box-shadow: 0 10px 24px rgba(27,31,36,0.06); }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
+    .stat { background: #fafbff; border: 1px dashed #e6e9ef; border-radius: 12px; padding: 14px; text-align: center; }
+    .stat h3 { margin: 0; font-size: 22px; color: var(--brand); }
+    .stat p { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+
+    /* Section titles */
+    .section-head { margin-bottom: 18px; }
+    .section-head h2 { margin: 0 0 8px; font-size: 28px; color: var(--dark); }
+    .section-head p { margin: 0; color: var(--muted); }
+
+    /* Cards */
+    .card { background: #fff; border: 1px solid #e6e9ef; border-radius: 14px; overflow: hidden; box-shadow: 0 8px 18px rgba(27,31,36,0.05); }
+    .card-body { padding: 16px; }
+    .card h3 { margin: 0 0 6px; font-size: 18px; color: var(--dark); }
+    .card p { margin: 0; color: var(--muted); font-size: 14px; }
+    .chip { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #fff7e6; color: #8a5b00; font-size: 12px; border: 1px solid #ffe1a9; margin-right: 6px; }
+
+    /* About */
+    .about { background: linear-gradient(180deg, #fff, #f9fbff); border-top: 1px solid #eef2f7; border-bottom: 1px solid #eef2f7; }
+
+    /* Testimonials */
+    .quote { background: #fff; border: 1px solid #e6e9ef; border-radius: 14px; padding: 16px; }
+    .quote p { margin: 0 0 10px; color: var(--text); }
+    .quote .author { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: 14px; }
+    .avatar { width: 40px; height: 40px; border-radius: 50%; background: #eee; }
+
+    /* Contact */
+    .contact-form { background: #fff; border: 1px solid #e6e9ef; border-radius: 16px; padding: 18px; }
+    .field { margin-bottom: 12px; }
+    .field label { display: block; font-weight: 600; margin-bottom: 6px; color: var(--dark); }
+    .field input, .field textarea, .field select {
+      width: 100%; padding: 12px; border: 1px solid #dfe3eb; border-radius: 10px; background: #fafbff; outline: none;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--brand); background: #fff; }
+    .form-actions { display: flex; gap: 10px; align-items: center; }
+    .note { color: var(--muted); font-size: 13px; }
+
+    /* Footer */
+    footer { background: #111; color: #cfd8dc; padding: 24px 0; margin-top: 24px; }
+    footer a { color: #cfd8dc; text-decoration: none; }
+    .footer-grid { display: grid; gap: 18px; grid-template-columns: 1.2fr 1fr 1fr; }
+    @media (max-width: 780px) { .footer-grid { grid-template-columns: 1fr; } }
+    .footer-brand { display: flex; align-items: center; gap: 12px; }
+    .footer-brand .brand-logo { background: #fef3c7; }
+
+    /* Utility */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    .center { text-align: center; }
+    .mt-0 { margin-top: 0; }
+    .mt-8 { margin-top: 8px; }
+    .mt-16 { margin-top: 16px; }
+    .mt-24 { margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header aria-label="Site header">
+    <div class="container nav">
+      <a href="#" class="brand" aria-label="JHOME Construction home">
+  <div class="brand-logo">JHC</div>
+  <div class="brand-name">JHOME Construction</div>
+</a>
+      <button class="hamburger" aria-label="Open menu" aria-expanded="false">☰</button>
+      <nav class="menu" aria-label="Primary">
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="cta-btn">Get a quote</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="container hero" id="home">
+    <div>
+      <h1>We build spaces that last</h1>
+      <p>Residential, commercial, and infrastructure projects delivered on time with uncompromising safety and quality.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#contact">Request a quote</a>
+        <a class="btn secondary" href="#projects">View projects</a>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <h3>250+</h3>
+          <p>Projects completed</p>
+        </div>
+        <div class="stat">
+          <h3>15yr</h3>
+          <p>Industry experience</p>
+        </div>
+        <div class="stat">
+          <h3>98%</h3>
+          <p>Client satisfaction</p>
+        </div>
+      </div>
+    </div>
+    <div class="hero-card" aria-label="Key capabilities">
+      <span class="chip">ISO 9001</span>
+      <span class="chip">RERA compliant</span>
+      <span class="chip">Green Building</span>
+      <div class="mt-16">
+        <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=1200&auto=format&fit=crop" alt="Construction site with crane" />
+      </div>
+      <p class="mt-8 note">Safety-first operations and transparent project management.</p>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services">
+    <div class="container">
+      <div class="section-head">
+        <h2>Services</h2>
+        <p>End-to-end construction solutions tailored for durability, efficiency, and cost control.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1600585154084-4bbd3b9f0c09?q=80&w=1200&auto=format&fit=crop" alt="Modern home exterior" />
+          <div class="card-body">
+            <h3>Residential construction</h3>
+            <p>Villas, apartments, and gated communities with premium finishes and structural integrity.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?q=80&w=1200&auto=format&fit=crop" alt="Commercial building facade" />
+          <div class="card-body">
+            <h3>Commercial projects</h3>
+            <p>Offices, retail complexes, and industrial spaces optimized for performance and safety.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1200&auto=format&fit=crop" alt="Bridge infrastructure" />
+          <div class="card-body">
+            <h3>Infrastructure</h3>
+            <p>Roads, bridges, and public utilities with robust planning and quality assurance.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+<section id="projects">
+  <div class="container">
+    <div class="section-head">
+      <h2>Featured projects</h2>
+      <p>Signature developments shaping Hyderabad’s skyline and communities.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1499951360447-b19be8fe9ebb?q=80&w=1200&auto=format&fit=crop" alt="Modern high-rise in Hyderabad" />
+        <div class="card-body">
+          <h3>JHOME Comet</h3>
+          <p>Premium residential towers in Gachibowli, blending smart living with eco‑friendly design.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1505692794403-34d4982f88aa?q=80&w=1200&auto=format&fit=crop" alt="Luxury apartments in Hyderabad" />
+        <div class="card-body">
+          <h3>JHOME Meteoroid</h3>
+          <p>Luxury gated community in Kondapur, featuring landscaped gardens and world‑class amenities.</p>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1541976076758-347942db1978?q=80&w=1200&auto=format&fit=crop" alt="Urban development in Hyderabad" />
+        <div class="card-body">
+          <h3>JHOME RUBE</h3>
+          <p>Mixed‑use development in Madhapur, combining retail, office spaces, and modern residences.</p>
+        </div>
+      </div>
+    </div>
+    <div class="center mt-16">
+      <a class="btn secondary" href="#contact">Discuss your project</a>
+    </div>
+  </div>
+</section>
+
+  <!-- About -->
+  <section id="about" class="about">
+    <div class="container grid grid-2">
+      <div>
+        <div class="section-head">
+          <h2>About us</h2>
+          <p>Trusted partner for complex builds across Telangana and beyond.</p>
+        </div>
+        <p>BuildRight Constructions blends engineering rigor with transparent execution. Our teams prioritize safety, cost control, and timely delivery while maintaining high craftsmanship standards.</p>
+        <p class="mt-8">We use modern project management tools, certified materials, and documented QA procedures to ensure predictable outcomes across all project stages.</p>
+        <div class="mt-16">
+          <span class="chip">Safety compliant</span>
+          <span class="chip">In-house design</span>
+          <span class="chip">Value engineering</span>
+        </div>
+      </div>
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1558002038-9b4075e3dd54?q=80&w=1200&auto=format&fit=crop" alt="Engineers reviewing blueprints on site" />
+        <div class="card-body">
+          <h3>Our mission</h3>
+          <p>Deliver resilient spaces that enhance communities and stand the test of time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-head">
+        <h2>Client testimonials</h2>
+        <p>Real feedback from partners and homeowners.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="quote">
+          <p>They communicated clearly and stuck to the timeline—rare in this industry.</p>
+          <div class="author">
+            <div class="avatar" aria-hidden="true"></div>
+            <span>Priya Sharma, Facility Manager</span>
+          </div>
+        </div>
+        <div class="quote">
+          <p>Quality work with attention to detail. The team handled approvals smoothly.</p>
+          <div class="author">
+            <div class="avatar" aria-hidden="true"></div>
+            <span>Rahul Verma, Developer</span>
+          </div>
+        </div>
+        <div class="quote">
+          <p>Our villa was delivered ahead of schedule, and the finish was excellent.</p>
+          <div class="author">
+            <div class="avatar" aria-hidden="true"></div>
+            <span>Neha Gupta, Homeowner</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Contact -->
+<section id="contact">
+  <div class="container">
+    <div class="section-head">
+      <h2>Contact us</h2>
+      <p>Tell us about your project. We’ll get back within one business day.</p>
+    </div>
+    <div class="grid grid-2">
+      <form class="contact-form" action="#" method="post" onsubmit="return handleSubmit(event)">
+        <div class="field">
+          <label for="name">Full name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" required />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required />
+        </div>
+        <div class="field">
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="tel" placeholder="9875678345" />
+        </div>
+        <div class="field">
+          <label for="service">Service</label>
+          <select id="service" name="service" required>
+            <option value="">Select a service</option>
+            <option>Residential construction</option>
+            <option>Commercial projects</option>
+            <option>Infrastructure</option>
+            <option>Renovation</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">Project details</label>
+          <textarea id="message" name="message" rows="5" placeholder="Location, timeline, budget range, scope..." required></textarea>
+        </div>
+        <div class="form-actions">
+          <button class="btn" type="submit">Send inquiry</button>
+          <span class="note">By submitting, you agree to be contacted about your request.</span>
+        </div>
+      </form>
+      <div>
+        <div class="card-body card">
+          <h3>Office</h3>
+          <p>Plot 12, Madhapur, Hyderabad, Telangana 500081</p>
+          <div class="mt-16">
+            <h3>Email</h3>
+            <p>info@jhomeconstruction.in</p>
+          </div>
+          <div class="mt-16">
+            <h3>Phone</h3>
+            <p>9875678345</p>
+          </div>
+          <div class="mt-16">
+            <h3>Working hours</h3>
+            <p>Mon–Sat, 9:00 AM – 6:00 PM IST</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="center mt-24">
+      <a class="btn secondary" href="#home">Back to top</a>
+    </div>
+  </div>
+</section>
+
+  <!-- Footer -->
+  <footer aria-label="Site footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">
+  <div class="brand-logo">JHC</div>
+  <div>
+    <div class="brand-name" style="color:#fff;">JHOME Construction</div>
+    <div class="mt-8" style="color:#9aa7b2;">Quality. Safety. On-time delivery.</div>
+  </div>
+</div>
+      </div>
+      <div>
+        <h3 class="mt-0" style="color:#fff;">Quick links</h3>
+        <p><a href="#services">Services</a> · <a href="#projects">Projects</a> · <a href="#about">About</a> · <a href="#contact">Contact</a></p>
+      </div>
+      <div>
+        <h3 class="mt-0" style="color:#fff;">Legal</h3>
+        <p><a href="#">Privacy policy</a> · <a href="#">Terms of service</a></p>
+      </div>
+    </div>
+    <div class="container" style="margin-top: 18px; font-size: 13px;">
+      © <span id="year"></span> BuildRight Constructions. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const burger = document.querySelector('.hamburger');
+    const menu = document.querySelector('.menu');
+    burger.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    // Simple form handler (demo)
+    function handleSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = Object.fromEntries(new FormData(form).entries());
+      alert('Thanks, ' + (data.name || 'there') + '! We received your inquiry.');
+      form.reset();
+      return false;
+    }
+
+    // Dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
